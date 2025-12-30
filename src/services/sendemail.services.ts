@@ -4,8 +4,8 @@ function createTransporter() {
   return nodemailer.createTransporter({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: 'shivamsharma27107@gmail.com',
+      pass: 'crnozdkuquqcrdvt'
     },
     tls: {
       rejectUnauthorized: false
@@ -21,7 +21,7 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
     const transporter = createTransporter();
     
     const result = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: 'shivamsharma27107@gmail.com',
       to,
       subject,
       html
