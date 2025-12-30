@@ -15,15 +15,22 @@ function createTransporter() {
 
 export const sendEmail = async (to: string, subject: string, html: string): Promise<boolean> => {
   try {
+    console.log(`📧 Attempting to send email to: ${to}`);
+    console.log(`📧 Email config - User: ${process.env.EMAIL_USER}`);
+    
     const transporter = createTransporter();
-    await transporter.sendMail({
+    
+    const result = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to,
       subject,
       html
     });
+    
+    console.log(`✅ Email sent successfully to: ${to}`, result.messageId);
     return true;
   } catch (error) {
+    console.error(`❌ Email failed to: ${to}`, error);
     return false;
   }
 }
