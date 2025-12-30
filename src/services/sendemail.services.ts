@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 function createTransporter() {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'shivamsharma27107@gmail.com',
