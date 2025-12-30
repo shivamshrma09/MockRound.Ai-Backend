@@ -15,7 +15,7 @@ const convertToIST = (utcDate) => {
 };
 
 export const startRoundStatusUpdater = () => {
-  cron.schedule('*/5 * * * *', async () => {
+  cron.schedule('0 * * * *', async () => {
     try {
       const challenges = await ChallengeModel.find({});
       const nowIST = getCurrentIST();
