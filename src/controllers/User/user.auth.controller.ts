@@ -244,16 +244,21 @@ export const sendOTP = async (req: Request, res: Response): Promise<Response> =>
     await OtpModel.deleteOne({ email });
     await OtpModel.create({ email, otp });
     
+    console.log(`📧 Sending OTP to: ${email}, OTP: ${otp}`);
+    
     // Send email async
     const otpHtml = createOTPEmail(name || 'User', otp);
     sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Account Verification' || 'MockRound.AI - Account Verification', otpHtml)
-      .catch(err => console.error('Email error:', err));
+      .then(() => console.log(`✅ Email sent successfully to: ${email}`))
+      .catch(err => console.error(`❌ Email failed to: ${email}`, err));
     
     return res.status(200).json({ 
       success: true, 
-      message: "OTP sent successfully to your email"
+      message: "OTP sent successfully to your email",
+      otp: process.env.NODE_ENV === 'development' ? otp : undefined
     });
   } catch (error) {
+    console.error('❌ SendOTP Error:', error);
     return res.status(500).json({ success: false, message: "Failed to send OTP" });
   }
 };
@@ -309,16 +314,21 @@ export const sendLoginOTP = async (req: Request, res: Response): Promise<Respons
     await OtpModel.deleteOne({ email });
     await OtpModel.create({ email, otp });
 
+    console.log(`📧 Sending Login OTP to: ${email}, OTP: ${otp}`);
+
     const emailHtml = createLoginOTPEmail(user.name, otp);
     sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Login OTP' || 'Login OTP - MockRound.AI', emailHtml)
-      .catch(err => console.error('Email send error:', err));
+      .then(() => console.log(`✅ Login OTP sent successfully to: ${email}`))
+      .catch(err => console.error(`❌ Login OTP failed to: ${email}`, err));
 
-      return res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: 'OTP sent successfully to your email'
+      message: 'OTP sent successfully to your email',
+      otp: process.env.NODE_ENV === 'development' ? otp : undefined
     });
 
   } catch (error: any) {
+    console.error('❌ SendLoginOTP Error:', error);
     return res.status(500).json({
       success: false,
       error: error.message
