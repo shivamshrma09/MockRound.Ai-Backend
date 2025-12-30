@@ -1,17 +1,17 @@
 import nodemailer from 'nodemailer';
 
 function createTransporter() {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+  return nodemailer.createTransporter({
+    service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
+    },
+    tls: {
+      rejectUnauthorized: false
     }
   });
 }
-
 
 export const sendEmail = async (to: string, subject: string, html: string): Promise<boolean> => {
   try {
@@ -34,5 +34,3 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
     return false;
   }
 }
-
-
