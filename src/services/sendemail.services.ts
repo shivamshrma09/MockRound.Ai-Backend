@@ -2,14 +2,16 @@ import nodemailer from 'nodemailer';
 
 function createTransporter() {
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: 'shivamsharma27107@gmail.com',
       pass: 'crnozdkuquqcrdvt'
     },
-    tls: {
-      rejectUnauthorized: false
-    }
+    connectionTimeout: 60000,
+    greetingTimeout: 30000,
+    socketTimeout: 60000
   });
 }
 
