@@ -244,22 +244,15 @@ export const sendOTP = async (req: Request, res: Response): Promise<Response> =>
     await OtpModel.deleteOne({ email });
     await OtpModel.create({ email, otp });
     
+    // Send email async
     const otpHtml = createOTPEmail(name || 'User', otp);
+    sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Account Verification' || 'MockRound.AI - Account Verification', otpHtml)
+      .catch(err => console.error('Email error:', err));
     
-    const emailSent = await sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Account Verification' || 'MockRound.AI - Account Verification', otpHtml);
-    
-    if (emailSent) {
-      return res.status(200).json({ 
-        success: true, 
-        message: "OTP sent successfully to your email"
-      });
-    } else {
-      return res.status(200).json({ 
-        success: true, 
-        message: "OTP generated (check console - email service unavailable)",
-        otp: otp
-      });
-    }
+    return res.status(200).json({ 
+      success: true, 
+      message: "OTP sent successfully to your email"
+    });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Failed to send OTP" });
   }
@@ -283,21 +276,10 @@ export const register = async (req: Request, res: Response): Promise<Response> =
     
     const token = user.generateAuthToken();
     
+    // Send welcome email async
     const welcomeHtml = createWelcomeEmail(name);
-    
-    const welcomeEmailSent = await sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Welcome to MockRound.AI' || 'Welcome to MockRound.AI', welcomeHtml);
-    
-    const welcomeEmailRecord = {
-      emailType: 'welcome',
-      subject: process.env.EMAIL_SUBJECT_PREFIX + 'Welcome to MockRound.AI' || 'Welcome to MockRound.AI',
-      htmlContent: welcomeHtml,
-      recipientEmail: email,
-      sentAt: new Date(),
-      status: welcomeEmailSent ? 'sent' : 'failed',
-      relatedData: { userId: user._id }
-    };
-    user.emailHistory.push(welcomeEmailRecord);
-    await user.save();
+    sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Welcome to MockRound.AI' || 'Welcome to MockRound.AI', welcomeHtml)
+      .catch(err => console.error('Welcome email error:', err));
     
     return res.status(201).json({ 
       success: true,
@@ -328,24 +310,12 @@ export const sendLoginOTP = async (req: Request, res: Response): Promise<Respons
     await OtpModel.create({ email, otp });
 
     const emailHtml = createLoginOTPEmail(user.name, otp);
+    sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Login OTP' || 'Login OTP - MockRound.AI', emailHtml)
+      .catch(err => console.error('Email send error:', err));
 
-    const emailSent = await sendEmail(email, process.env.EMAIL_SUBJECT_PREFIX + 'Login OTP' || 'Login OTP - MockRound.AI', emailHtml);
-
-    const emailRecord = {
-      emailType: 'login-otp',
-      subject: process.env.EMAIL_SUBJECT_PREFIX + 'Login OTP' || 'Login OTP - MockRound.AI',
-      htmlContent: emailHtml,
-      recipientEmail: email,
-      sentAt: new Date(),
-      status: emailSent ? 'sent' : 'failed',
-      relatedData: { otp }
-    };
-    user.emailHistory.push(emailRecord);
-    await user.save();
-
-    return res.status(200).json({
+      return res.status(200).json({
       success: true,
-      message: emailSent ? 'OTP sent successfully to your email' : 'OTP generated but email failed to send'
+      message: 'OTP sent successfully to your email'
     });
 
   } catch (error: any) {

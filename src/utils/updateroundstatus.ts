@@ -15,7 +15,7 @@ const convertToIST = (utcDate) => {
 };
 
 export const startRoundStatusUpdater = () => {
-  cron.schedule('*/5 * * * *', async () => {
+  cron.schedule('0 * * * *', async () => {
     try {
       const challenges = await ChallengeModel.find({});
       const nowIST = getCurrentIST();
@@ -29,7 +29,9 @@ export const startRoundStatusUpdater = () => {
           const endIST = convertToIST(new Date(round.endDate));
           let newStatus = 'upcoming';
           
-          console.log(`Round ${round.roundNumber}: Current IST=${nowIST.toISOString()}, Start IST=${startIST.toISOString()}, End IST=${endIST.toISOString()}`);
+          if (process.env.NODE_ENV !== 'production') {
+            console.log(`Round ${round.roundNumber}: Current IST=${nowIST.toISOString()}, Start IST=${startIST.toISOString()}, End IST=${endIST.toISOString()}`);
+          }
           
           if (nowIST >= startIST && nowIST < endIST) {
             newStatus = 'live';
