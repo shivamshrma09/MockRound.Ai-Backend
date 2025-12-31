@@ -54,7 +54,7 @@ export const sendThankYouEmail = async (userEmail: string, userName: string): Pr
     const htmlContent = createThankYouEmail(userName);
     
     const { data, error } = await resend.emails.send({
-      from: 'MockRound.AI <noreply@mockround.ai>',
+      from: 'shivamsharma27107@gmail.com',
       to: [userEmail],
       subject: 'Thank You for Your Feedback - MockRound.AI',
       html: htmlContent,
@@ -81,7 +81,7 @@ export const sendBulkThankYouEmails = async (users: Array<{ email: string; name:
       const htmlContent = createThankYouEmail(user.name);
       
       const { data, error } = await resend.emails.send({
-        from: 'MockRound.AI <noreply@mockround.ai>',
+        from: 'shivamsharma27107@gmail.com',
         to: [user.email],
         subject: 'Thank You for Your Feedback - MockRound.AI',
         html: htmlContent,
