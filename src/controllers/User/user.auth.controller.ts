@@ -9,6 +9,10 @@ function generateOTP(): string {
   return crypto.randomInt(100000, 999999).toString();
 }
 
+
+
+
+
 const createOTPEmail = (name: string, otp: string) => {
   return `
 <!DOCTYPE html>
@@ -19,15 +23,15 @@ const createOTPEmail = (name: string, otp: string) => {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body style="margin: 0; padding: 40px; font-family: Arial, sans-serif;">
-    <div style="display: flex; flex-direction: column; margin-left: 100px; max-width: 600px; align-items: center;">
+    <div style="display: flex; flex-direction: row; margin-left: 100px; max-width: 600px; align-items: center;">
         
-        <img src="https://ik.imagekit.io/qwzhnpeqg/generated-image.png" alt="MockRound.AI Logo" style="width: 170px; display: block; margin: 0 auto 20px;">
+        <img src="https://ik.imagekit.io/qwzhnpeqg/mockround.ai%20imges%20public/generated-image.png" alt="MockRound.AI Logo" style="width: 170px; display: block; margin: 0 auto 20px;">
         
         <div style="text-align: center; margin-bottom: 20px;">
             <p style="color: #333; font-size: 16px; margin: 0 0 10px 0;">Please verify your identity, <b style="color: #000;">${name}</b></p>
         </div>
         
-        <div style="width: 300px; min-height: auto; border: 1px solid #333; display: flex; flex-direction: column; padding: 20px; border-radius: 8px;">
+        <div style="width: 300px; min-height: auto; border: 1px solid #333; display: flex; flex-direction: row; padding: 20px; border-radius: 8px;">
             <p style="color: #555; margin-bottom: 20px; font-size: 14px;">Here is your MockRound.AI authentication code:</p>
             
             <div style="background: #6f6c6c; border-radius: 6px; padding: 20px; text-align: center; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
@@ -68,6 +72,8 @@ const createOTPEmail = (name: string, otp: string) => {
 </html>
   `;
 };
+
+
 
 const createWelcomeEmail = (name: string) => {
   return `
