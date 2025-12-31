@@ -7,7 +7,7 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
     console.log(`📧 Attempting to send email via Resend to: ${to}`);
     
     const { data, error } = await resend.emails.send({
-      from: 'shivamsharma27107@gmail.com',
+      from: 'onboarding@resend.dev',
       to: [to],
       subject: subject,
       html: html,
