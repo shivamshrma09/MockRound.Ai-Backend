@@ -8,7 +8,7 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
     
     const msg = {
       to: to,
-      from: 'shivamsharma27107@gmail.com',
+      from: process.env.SENDER_EMAIL,
       subject: subject,
       html: html,
     };
