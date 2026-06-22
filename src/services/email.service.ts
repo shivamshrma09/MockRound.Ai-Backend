@@ -1,6 +1,14 @@
 import sgMail from '@sendgrid/mail';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const initSendGrid = () => {
+  const key = process.env.SENDGRID_API_KEY;
+  if (!key) {
+    console.warn('SENDGRID_API_KEY is not set. Email sending is disabled until a valid key is provided.');
+    return false;
+  }
+  sgMail.setApiKey(key);
+  return true;
+};
 
 const createThankYouEmail = (userName: string) => {
   return `
@@ -23,6 +31,7 @@ const createThankYouEmail = (userName: string) => {
 };
 
 export const sendThankYouEmail = async (userEmail: string, userName: string): Promise<boolean> => {
+  if (!initSendGrid()) return false;
   try {
     const htmlContent = createThankYouEmail(userName);
     
@@ -42,6 +51,7 @@ export const sendThankYouEmail = async (userEmail: string, userName: string): Pr
 };
 
 export const sendBulkThankYouEmails = async (users: Array<{ email: string; name: string }>): Promise<{ success: number; failed: number }> => {
+  if (!initSendGrid()) return { success: 0, failed: users.length };
   let successCount = 0;
   let failedCount = 0;
 

@@ -10,6 +10,12 @@ const INSTANCE_ID = process.env.RENDER_INSTANCE_ID || `instance-${Date.now()}`;
 
 const connectDB = async () => {
   try {
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mockround';
+
+    if (!process.env.MONGODB_URI) {
+      console.warn(`[${INSTANCE_ID}] MONGODB_URI is not set, using fallback: ${mongoUri}`);
+    }
+
     const options: mongoose.ConnectOptions = {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
@@ -17,7 +23,8 @@ const connectDB = async () => {
       retryWrites: true,
       w: 'majority'
     };
-    await mongoose.connect(process.env.MONGODB_URI , options);
+
+    await mongoose.connect(mongoUri, options);
     console.log(`[${INSTANCE_ID}] MongoDB Connected`);
   } catch (error: any) {
     console.error(`[${INSTANCE_ID}] MongoDB Connection Failed:`, error.message);
