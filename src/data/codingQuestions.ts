@@ -130,5 +130,33 @@ export const codingQuestions = [
       { language: "Python", code: "def mergeKLists(lists):\n    # Write your solution here\n    pass" },
       { language: "Java", code: "class Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        // Write your solution here\n    }\n}" }
     ]
+  },
+  {
+    time: 30,
+    title: "Merge Sorted Array",
+    difficulty: "Easy",
+    description: "You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.\n\nMerge nums2 into nums1 as one sorted array. The final sorted array should not be returned by the function, but instead be stored inside the array nums1.",
+    constraints: [
+      "nums1.length == m + n",
+      "nums2.length == n",
+      "0 <= m, n <= 200",
+      "1 <= m + n <= 200",
+      "-10^9 <= nums1[i], nums2[i] <= 10^9"
+    ],
+    examples: [
+      { input: "nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3", output: "[1,2,2,3,5,6]", explanation: "The arrays we are merging are [1,2,3] and [2,5,6]." }
+    ],
+    testCases: [
+      { input: "nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3", expected: "[1,2,2,3,5,6]", inputData: "[1,2,3,0,0,0]\n3\n[2,5,6]\n3" },
+      { input: "nums1 = [1], m = 1, nums2 = [], n = 0", expected: "[1]", inputData: "[1]\n1\n[]\n0" },
+      { input: "nums1 = [0], m = 0, nums2 = [1], n = 1", expected: "[1]", inputData: "[0]\n0\n[1]\n1" }
+    ],
+    solution: "function merge(nums1, m, nums2, n) {\n  let i = m - 1, j = n - 1, k = m + n - 1;\n  while (j >= 0) {\n    if (i >= 0 && nums1[i] > nums2[j]) nums1[k--] = nums1[i--];\n    else nums1[k--] = nums2[j--];\n  }\n  return nums1;\n}",
+    defaultCode: [
+      { language: "JavaScript", code: "function merge(nums1, m, nums2, n) {\n  // Write your solution here\n}" },
+      { language: "Python", code: "def merge(nums1, m, nums2, n):\n    # Write your solution here\n    pass" },
+      { language: "Java", code: "class Solution {\n    public void merge(int[] nums1, int m, int[] nums2, int n) {\n        // Write your solution here\n    }\n}" },
+      { language: "C++", code: "class Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        // Write your solution here\n    }\n};" }
+    ]
   }
 ];
