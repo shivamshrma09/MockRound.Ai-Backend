@@ -108,7 +108,7 @@ export const codingQuestions = [
       { input: "s = \"babad\"", expected: "\"bab\"", inputData: "\"babad\"" },
       { input: "s = \"cbbd\"", expected: "\"bb\"", inputData: "\"cbbd\"" }
     ],
-    solution: "bab"
+    solution: "bab",
     defaultCode: [
       { language: "JavaScript", code: "function longestPalindrome(s) {\n  // Write your solution here\n}" },
       { language: "Python", code: "def longestPalindrome(s):\n    # Write your solution here\n    pass" },
