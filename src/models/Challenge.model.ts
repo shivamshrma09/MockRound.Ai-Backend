@@ -72,12 +72,21 @@ const QuestionsSchema = new Schema({
 }, { _id: false });
 
 
+const AIAnalysisSchema = new Schema({
+  status: { type: String, trim: true },
+  average_score: { type: Number },
+  total_submissions: { type: Number },
+  results: { type: Schema.Types.Mixed }
+}, { _id: false });
+
 const StudentsSchema = new Schema({
   candidateName: { type: String, trim: true },
   candidateEmail: { type: String, trim: true },
   candidateID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   questions: [QuestionsSchema],
-  suspiciousActivity: [SuspiciousActivitySchema]
+  suspiciousActivity: [SuspiciousActivitySchema],
+  aiAnalysis: { type: AIAnalysisSchema, default: null },
+  analysisStatus: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' }
 }, { _id: false });
 
 

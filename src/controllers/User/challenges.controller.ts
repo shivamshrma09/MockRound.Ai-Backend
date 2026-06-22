@@ -4,6 +4,130 @@ import { ChallengeModel } from '../../models/Challenge.model';
 import { UserModel } from '../../models/User.model';
 import { sendEmail } from '../../services/sendemail.services';
 import { Types } from 'mongoose';
+import axios from 'axios';
+
+const createAnalysisEmailHTML = (candidateName: string, challengeName: string, roundNumber: number, aiData: any): string => {
+  const results = aiData.results || [];
+  const avgScore = aiData.average_score ?? 0;
+
+  const questionsHTML = results.map((r: any) => {
+    const score = r.overall_score ?? 0;
+    const scoreColor = score >= 70 ? '#22c55e' : score >= 50 ? '#f59e0b' : '#ef4444';
+    const correctness = r.analysis?.correctness?.score ?? 0;
+    const quality = r.analysis?.code_quality?.score ?? 0;
+    const efficiency = r.analysis?.efficiency?.score ?? 0;
+    const aiPenalty = r.analysis?.ai_detection?.penalty ?? 0;
+    const simPenalty = r.analysis?.similarity?.penalty ?? 0;
+    const timeComplexity = r.analysis?.efficiency?.time_complexity ?? 'N/A';
+    const recommendations = (r.recommendations || []).map((rec: string) => `<li style="color:#d1d5db;font-size:12px;margin-bottom:4px;">${rec}</li>`).join('');
+
+    return `
+    <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:20px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="color:#fff;font-size:15px;margin:0;">${r.question_title || 'Question'}</h3>
+        <span style="background:${scoreColor};color:#fff;padding:4px 12px;border-radius:20px;font-weight:bold;font-size:14px;">${score}/85</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:#111;padding:8px;border-radius:6px;">
+          <span style="color:#9ca3af;font-size:11px;">Correctness</span>
+          <p style="color:#fff;font-size:16px;font-weight:bold;margin:2px 0;">${correctness}/40</p>
+        </div>
+        <div style="background:#111;padding:8px;border-radius:6px;">
+          <span style="color:#9ca3af;font-size:11px;">Code Quality</span>
+          <p style="color:#fff;font-size:16px;font-weight:bold;margin:2px 0;">${quality}/25</p>
+        </div>
+        <div style="background:#111;padding:8px;border-radius:6px;">
+          <span style="color:#9ca3af;font-size:11px;">Efficiency</span>
+          <p style="color:#fff;font-size:16px;font-weight:bold;margin:2px 0;">${efficiency}/20 <span style="font-size:11px;color:#6b7280;">(${timeComplexity})</span></p>
+        </div>
+        <div style="background:#111;padding:8px;border-radius:6px;">
+          <span style="color:#9ca3af;font-size:11px;">Penalties</span>
+          <p style="color:#ef4444;font-size:16px;font-weight:bold;margin:2px 0;">-${aiPenalty + simPenalty}</p>
+        </div>
+      </div>
+      ${r.feedback ? `<p style="color:#d1d5db;font-size:13px;margin-bottom:8px;">${r.feedback}</p>` : ''}
+      ${recommendations ? `<ul style="margin:0;padding-left:16px;">${recommendations}</ul>` : ''}
+    </div>`;
+  }).join('');
+
+  const overallColor = avgScore >= 70 ? '#22c55e' : avgScore >= 50 ? '#f59e0b' : '#ef4444';
+
+  return `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#000;font-family:Arial,sans-serif;">
+<div style="max-width:600px;margin:0 auto;padding:24px;">
+  <div style="text-align:center;margin-bottom:24px;">
+    <img src="https://ik.imagekit.io/qwzhnpeqg/generated-image.png" alt="MockRound.AI" style="height:50px;">
+  </div>
+  <div style="background:#111;border:1px solid #222;border-radius:12px;padding:24px;">
+    <h1 style="color:#d97757;font-size:22px;margin:0 0 4px;">Your Code Analysis Report</h1>
+    <p style="color:#9ca3af;font-size:13px;margin:0 0 20px;">${challengeName} — Round ${roundNumber}</p>
+    <p style="color:#d1d5db;font-size:14px;margin-bottom:20px;">Hi <strong style="color:#fff;">${candidateName}</strong>, here's your detailed performance report.</p>
+    <div style="background:#d97757;border-radius:10px;padding:16px;text-align:center;margin-bottom:24px;">
+      <p style="color:#fff;font-size:13px;margin:0;">Overall Average Score</p>
+      <p style="color:#fff;font-size:36px;font-weight:bold;margin:4px 0;">${avgScore.toFixed(1)}<span style="font-size:16px;">/85</span></p>
+    </div>
+    ${questionsHTML}
+  </div>
+  <p style="color:#6b7280;font-size:11px;text-align:center;margin-top:16px;">© 2025 MockRound.AI | All Rights Reserved</p>
+</div>
+</body></html>`;
+};
+
+const runAIAnalysis = async (challengeID: string, roundNumber: number, candidateID: string, candidateEmail: string, candidateName: string, challengeName: string, questions: any[]) => {
+  try {
+    const AI_URL = process.env.AI_ANALYSIS_API_URL;
+    if (!AI_URL) return;
+
+    const payload = {
+      submissions: questions.map((q: any) => ({
+        question: q.question || q.title || '',
+        user_code: q.answer || q.userCode || '',
+        correct_solution: q.solution || '',
+        language: (q.language || 'python').toLowerCase(),
+        difficulty: (q.difficulty || 'medium').toLowerCase()
+      }))
+    };
+
+    const response = await axios.post(AI_URL, payload, {
+      timeout: Number(process.env.API_TIMEOUT) || 120000,
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (response.data) {
+      await ChallengeModel.findOneAndUpdate(
+        {
+          _id: challengeID,
+          'rawData.roundNumber': Number(roundNumber),
+          'rawData.students.candidateID': candidateID
+        },
+        {
+          $set: {
+            'rawData.$[round].students.$[student].aiAnalysis': {
+              status: response.data.status,
+              average_score: response.data.average_score,
+              total_submissions: response.data.total_submissions,
+              results: response.data.results
+            },
+            'rawData.$[round].students.$[student].analysisStatus': 'completed'
+          }
+        },
+        {
+          arrayFilters: [
+            { 'round.roundNumber': Number(roundNumber) },
+            { 'student.candidateID': candidateID }
+          ]
+        }
+      );
+
+      // Email report bhejo
+      const emailHTML = createAnalysisEmailHTML(candidateName, challengeName, roundNumber, response.data);
+      await sendEmail(candidateEmail, `Your Code Analysis Report - Round ${roundNumber} | MockRound.AI`, emailHTML);
+    }
+  } catch (error: any) {
+    console.error('AI Analysis failed:', error.message);
+  }
+};
 
 const createEnrollmentEmail = (candidateName: string, challengeName: string, company_Name: string, role: string, totalRounds: number) => {
   return `
@@ -613,6 +737,9 @@ export const saveUserQuestions = async (req: Request, res: Response): Promise<Re
     student.questions.push(...questionsToAdd);
     
     await challenge.save();
+
+    // Background mein HuggingFace AI analysis trigger karo
+    runAIAnalysis(challengeID, Number(roundNumber), candidateID, finalCandidateEmail, finalCandidateName, challenge.challengeName, questions);
 
     return res.status(201).json({
       success: true,

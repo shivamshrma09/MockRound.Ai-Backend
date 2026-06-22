@@ -13,7 +13,7 @@ export const codingQuestions = [
     defaultCode: [
       { language: "JavaScript", code: "function climbStairs(n) {\n  // Write your solution here\n}" },
       { language: "Python", code: "def climbStairs(n):\n    # Write your solution here\n    pass" },
-      { language: "Java", code: "class Solution {\n    public int climbStairs(int n) {\n        // Write your solution here\n    }\n}" }
+      { language: "Java", code: "import java.util.Scanner;\nclass Solution {\n    public static int climbStairs(int n) {\n        // Write your solution here\n        return 0;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(climbStairs(n));\n    }\n}" }
     ]
   },
   {
@@ -24,7 +24,7 @@ export const codingQuestions = [
     constraints: ["1 <= numCourses <= 10^5", "0 <= prerequisites.length <= 5000"],
     examples: [{ input: "numCourses = 2, prerequisites = [[1,0]]", output: "true", explanation: "Take course 0 then 1" }],
     testCases: [
-      { input: "numCourses = 2, prerequisites = [[1,0]]", expected: "true", inputData: "2, [[1,0]]" }
+      { input: "numCourses = 2, prerequisites = [[1,0]]", expected: "true", inputData: "2\n[[1,0]]" }
     ],
     defaultCode: [
       { language: "JavaScript", code: "function canFinish(numCourses, prerequisites) {\n  // Write your solution here\n}" },
@@ -72,7 +72,7 @@ export const codingQuestions = [
     constraints: ["1 <= coins.length <= 12", "1 <= coins[i] <= 2^31 - 1", "0 <= amount <= 10^4"],
     examples: [{ input: "coins = [1,3,4], amount = 6", output: "2", explanation: "6 = 3 + 3" }],
     testCases: [
-      { input: "coins = [1,3,4], amount = 6", expected: "2", inputData: "[1,3,4], 6" }
+      { input: "coins = [1,3,4], amount = 6", expected: "2", inputData: "[1,3,4]\n6" }
     ],
     defaultCode: [
       { language: "JavaScript", code: "function coinChange(coins, amount) {\n  // Write your solution here\n}" },
@@ -88,8 +88,8 @@ export const codingQuestions = [
     constraints: ["2 <= nums.length <= 10^4", "-10^9 <= nums[i] <= 10^9", "-10^9 <= target <= 10^9"],
     examples: [{ input: "nums = [2,7,11,15], target = 9", output: "[0,1]", explanation: "nums[0] + nums[1] = 2 + 7 = 9" }],
     testCases: [
-      { input: "nums = [2,7,11,15], target = 9", expected: "[0,1]", inputData: "[2,7,11,15], 9" },
-      { input: "nums = [3,2,4], target = 6", expected: "[1,2]", inputData: "[3,2,4], 6" }
+      { input: "nums = [2,7,11,15], target = 9", expected: "[0,1]", inputData: "[2,7,11,15]\n9" },
+      { input: "nums = [3,2,4], target = 6", expected: "[1,2]", inputData: "[3,2,4]\n6" }
     ],
     defaultCode: [
       { language: "JavaScript", code: "function twoSum(nums, target) {\n  // Write your solution here\n}" },
@@ -108,6 +108,7 @@ export const codingQuestions = [
       { input: "s = \"babad\"", expected: "\"bab\"", inputData: "\"babad\"" },
       { input: "s = \"cbbd\"", expected: "\"bb\"", inputData: "\"cbbd\"" }
     ],
+    solution: "bab"
     defaultCode: [
       { language: "JavaScript", code: "function longestPalindrome(s) {\n  // Write your solution here\n}" },
       { language: "Python", code: "def longestPalindrome(s):\n    # Write your solution here\n    pass" },
