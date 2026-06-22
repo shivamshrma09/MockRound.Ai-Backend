@@ -184,54 +184,63 @@ const createLoginOTPEmail = (name: string, otp: string) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body style="margin: 0; padding: 40px; font-family: Arial, sans-serif;">
-    <div style="display: flex; flex-direction: column; margin-left: 100px; max-width: 600px; align-items: center;">
-        
-        <img src="https://ik.imagekit.io/qwzhnpeqg/generated-image.png" alt="MockRound.AI Logo" style="width: 170px; display: block; margin: 0 auto 20px;">
-        
-        <div style="text-align: center; margin-bottom: 20px;">
-            <p style="color: #333; font-size: 16px; margin: 0 0 10px 0;">Welcome back, <b style="color: #000;">${name}</b></p>
-        </div>
-        
-        <div style="width: 300px; min-height: auto; border: 1px solid #333; display: flex; flex-direction: column; padding: 20px; border-radius: 8px;">
-            <p style="color: #555; margin-bottom: 20px; font-size: 14px;">Here is your login authentication code:</p>
-            
-            <div style="background: #6f6c6c; border-radius: 6px; padding: 20px; text-align: center; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">
-                <p style="color: white; font-size: 24px; font-weight: bold; margin: 0; letter-spacing: 2px;">${otp}</p>
-            </div>
-            
-            <p style="color: #999; font-size: 11px; margin: 0 0 15px 0; line-height: 1.4;">
-                This code is valid for <strong>10 minutes</strong> and can only be used once.<br>
-                Please don't share this code with anyone: we'll never ask for it on the phone or via email.
-            </p>
-            
-            <p style="color: #aaa; font-size: 11px; margin: 0 0 15px 0;">
-                Thanks,<br><strong>The MockRound.AI Team</strong>
-            </p>
+<body style="margin:0; padding:0; background-color:#0a0a0a; font-family:Arial, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0a0a; padding: 40px 0;">
+        <tr>
+            <td align="center">
+                <table width="520" cellpadding="0" cellspacing="0" style="background-color:#111111; border-radius:12px; border:1px solid #222222; overflow:hidden;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding: 32px 40px 24px; border-bottom: 1px solid #1f1f1f;">
+                            <img src="https://ik.imagekit.io/qwzhnpeqg/mockround.ai%20imges%20public/logo2.png" alt="MockRound.AI" style="height:36px; display:block;" />
+                        </td>
+                    </tr>
 
-            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 10px; border-top: 1px solid #555; padding-top: 12px;">
-                <a href="https://x.com/Vsion09" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: none; font-size: 14px;">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/shivam-kumar-321810324/" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: none; font-size: 14px;">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/shivamshrma09" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: none; font-size: 14px;">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://medium.com/@vsion09" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: none; font-size: 14px;">
-                    <i class="fab fa-medium"></i>
-                </a>
-                <a href="https://www.youtube.com/@shivamsharmadev" target="_blank" rel="noopener noreferrer" style="color: #999; text-decoration: none; font-size: 14px;">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 36px 40px 20px;">
+                            <p style="color:#ffffff; font-size:22px; font-weight:700; margin:0 0 8px 0;">Welcome back, ${name} 👋</p>
+                            <p style="color:#888888; font-size:14px; margin:0 0 28px 0;">Use the code below to complete your login. It expires in 10 minutes.</p>
 
-        </div>
+                            <!-- OTP Box -->
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="background-color:#1a1a1a; border:1px solid #d97757; border-radius:10px; padding: 28px 0;">
+                                        <p style="color:#d97757; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin:0 0 12px 0;">Your Login Code</p>
+                                        <p style="color:#ffffff; font-size:42px; font-weight:800; letter-spacing:12px; margin:0;">${otp}</p>
+                                    </td>
+                                </tr>
+                            </table>
 
-    </div>
+                            <p style="color:#555555; font-size:12px; margin:20px 0 0 0; line-height:1.6;">
+                                This code is valid for <strong style="color:#888888;">10 minutes</strong> and can only be used once.<br/>
+                                If you didn't request this, you can safely ignore this email.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px 40px 32px; border-top: 1px solid #1f1f1f;">
+                            <p style="color:#444444; font-size:12px; margin:0 0 12px 0;">Thanks,<br/><strong style="color:#666666;">The MockRound.AI Team</strong></p>
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding-right:12px;"><a href="https://x.com/Vsion09" style="color:#555555; text-decoration:none; font-size:12px;">Twitter</a></td>
+                                    <td style="padding-right:12px;"><a href="https://www.linkedin.com/in/shivam-kumar-321810324/" style="color:#555555; text-decoration:none; font-size:12px;">LinkedIn</a></td>
+                                    <td style="padding-right:12px;"><a href="https://github.com/shivamshrma09" style="color:#555555; text-decoration:none; font-size:12px;">GitHub</a></td>
+                                    <td><a href="https://www.youtube.com/@shivamsharmadev" style="color:#555555; text-decoration:none; font-size:12px;">YouTube</a></td>
+                                </tr>
+                            </table>
+                            <p style="color:#333333; font-size:11px; margin:16px 0 0 0;">© 2025 MockRound.AI · All Rights Reserved</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
   `;
