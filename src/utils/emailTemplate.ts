@@ -1,74 +1,209 @@
-export const createEmailTemplate = (content: string, title: string = 'MockRound.AI'): string => {
-  return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${title}</title>
-    </head>
-    <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            
-            <!-- Header with Logo -->
-            <div style="background-color: #d97757; padding: 20px; text-align: center;">
-                <img src="https:
-                     alt="MockRound.AI" style="height: 60px; width: auto;">
-                <h1 style="color: white; margin: 10px 0 0 0; font-size: 24px;">${title}</h1>
-            </div>
-            
-            <!-- Main Content -->
-            <div style="padding: 30px; color: #333;">
-                ${content}
-            </div>
-            
-            <!-- Footer with Social Links -->
-            <div style="background-color: black; padding: 20px; text-align: center;">
-                <p style="color: white; margin: 0 0 15px 0; font-size: 14px;">Connect with us:</p>
-                
-                <div style="margin: 15px 0;">
-                    <!-- Twitter/X -->
-                    <a href="https:
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                    </a>
-                    
-                    <!-- LinkedIn -->
-                    <a href="https:
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
-                    
-                    <!-- GitHub -->
-                    <a href="https:
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    
-                    <!-- Medium -->
-                    <a href="https:
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                        </svg>
-                    </a>
-                    
-                    <!-- YouTube -->
-                    <a href="https:
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <p style="color: white; margin: 15px 0 0 0; font-size: 12px;">
-                    © 2024 MockRound.AI. All rights reserved.
-                </p>
-            </div>
-        </div>
-    </body>
-    </html>
-  `;
-};
+const LOGO = 'https://ik.imagekit.io/qwzhnpeqg/mockround.ai%20imges%20public/logo2.png';
+const ACCENT = '#D97757';
+const BORDER = 'rgba(0,0,0,0.12)';
+
+const esc = (str: string): string =>
+  String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const footer = `
+<tr>
+  <td style="padding:20px 40px 28px;border-top:1px solid ${BORDER};text-align:center;">
+    <table cellpadding="0" cellspacing="0" style="margin:0 auto;">
+      <tr>
+        <td style="padding:0 8px;"><a href="https://x.com/Vsion09" style="color:#9ca3af;text-decoration:none;font-size:12px;font-family:Arial,sans-serif;">Twitter</a></td>
+        <td style="color:#d1d5db;font-size:12px;">·</td>
+        <td style="padding:0 8px;"><a href="https://www.linkedin.com/in/shivam-kumar-321810324/" style="color:#9ca3af;text-decoration:none;font-size:12px;font-family:Arial,sans-serif;">LinkedIn</a></td>
+        <td style="color:#d1d5db;font-size:12px;">·</td>
+        <td style="padding:0 8px;"><a href="https://github.com/shivamshrma09" style="color:#9ca3af;text-decoration:none;font-size:12px;font-family:Arial,sans-serif;">GitHub</a></td>
+        <td style="color:#d1d5db;font-size:12px;">·</td>
+        <td style="padding:0 8px;"><a href="https://www.youtube.com/@shivamsharmadev" style="color:#9ca3af;text-decoration:none;font-size:12px;font-family:Arial,sans-serif;">YouTube</a></td>
+      </tr>
+    </table>
+    <p style="color:#9ca3af;font-size:11px;margin:10px 0 0 0;font-family:Arial,sans-serif;">© 2025 MockRound.AI · All Rights Reserved</p>
+  </td>
+</tr>`;
+
+const wrap = (body: string) => `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:40px 16px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;border:1px solid ${BORDER};overflow:hidden;">
+        <tr>
+          <td align="center" style="padding:28px 40px 22px;border-bottom:1px solid ${BORDER};">
+            <img src="${LOGO}" alt="MockRound.AI" style="height:30px;display:block;"/>
+          </td>
+        </tr>
+        ${body}
+        ${footer}
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+/* ─── OTP Email (login + signup) ─── */
+export const otpEmail = (name: string, otp: string, heading: string, subtext: string): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 28px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 6px 0;font-family:Arial,sans-serif;">${heading}, ${name} 👋</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 28px 0;font-family:Arial,sans-serif;">${subtext}</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="background:#fff8f5;border:1.5px solid ${ACCENT};border-radius:10px;padding:28px 20px;">
+          <p style="color:${ACCENT};font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px 0;font-family:Arial,sans-serif;">Your Verification Code</p>
+          <p style="color:#111827;font-size:38px;font-weight:800;letter-spacing:12px;margin:0;font-family:Arial,sans-serif;">${otp}</p>
+        </td>
+      </tr>
+    </table>
+
+    <p style="color:#9ca3af;font-size:12px;margin:20px 0 0 0;line-height:1.7;font-family:Arial,sans-serif;">
+      Valid for <strong style="color:#6b7280;">10 minutes</strong> · One-time use only.<br/>
+      If you didn't request this, please ignore this email.
+    </p>
+  </td></tr>`);
+
+/* ─── Welcome Email ─── */
+export const welcomeEmail = (name: string): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 28px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 6px 0;font-family:Arial,sans-serif;">Welcome to MockRound.AI, ${name}! 🎉</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 24px 0;font-family:Arial,sans-serif;">Your account is ready. Start preparing for your dream job today.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${BORDER};border-radius:8px;margin-bottom:24px;">
+      <tr><td style="padding:14px 20px;border-bottom:1px solid #f3f4f6;">
+        <p style="color:#111827;font-size:13px;font-weight:600;margin:0 0 2px 0;font-family:Arial,sans-serif;">🤖 AI Mock Interviews</p>
+        <p style="color:#6b7280;font-size:12px;margin:0;font-family:Arial,sans-serif;">Practice with intelligent AI interviewers anytime</p>
+      </td></tr>
+      <tr><td style="padding:14px 20px;border-bottom:1px solid #f3f4f6;">
+        <p style="color:#111827;font-size:13px;font-weight:600;margin:0 0 2px 0;font-family:Arial,sans-serif;">💻 Coding Challenges</p>
+        <p style="color:#6b7280;font-size:12px;margin:0;font-family:Arial,sans-serif;">Real company problems with live code execution</p>
+      </td></tr>
+      <tr><td style="padding:14px 20px;">
+        <p style="color:#111827;font-size:13px;font-weight:600;margin:0 0 2px 0;font-family:Arial,sans-serif;">📊 Detailed Feedback</p>
+        <p style="color:#6b7280;font-size:12px;margin:0;font-family:Arial,sans-serif;">Comprehensive analysis after every session</p>
+      </td></tr>
+    </table>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr><td align="center" style="background:${ACCENT};border-radius:8px;padding:14px;">
+        <p style="color:#ffffff;font-size:13px;font-weight:700;margin:0;font-family:Arial,sans-serif;">Log in and start practicing →</p>
+      </td></tr>
+    </table>
+  </td></tr>`);
+
+/* ─── Enrollment Email ─── */
+export const enrollmentEmail = (name: string, challengeName: string, company: string, role: string, totalRounds: number): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 28px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 4px 0;font-family:Arial,sans-serif;">Enrollment Confirmed! 🎉</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 24px 0;font-family:Arial,sans-serif;">Hey ${name}, you're all set to compete.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${BORDER};border-radius:8px;margin-bottom:24px;">
+      <tr><td style="padding:13px 20px;border-bottom:1px solid #f3f4f6;">
+        <p style="color:#9ca3af;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin:0 0 2px 0;font-family:Arial,sans-serif;">Challenge</p>
+        <p style="color:#111827;font-size:14px;font-weight:700;margin:0;font-family:Arial,sans-serif;">${challengeName}</p>
+      </td></tr>
+      <tr><td style="padding:13px 20px;border-bottom:1px solid #f3f4f6;">
+        <p style="color:#9ca3af;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin:0 0 2px 0;font-family:Arial,sans-serif;">Company</p>
+        <p style="color:#111827;font-size:14px;font-weight:700;margin:0;font-family:Arial,sans-serif;">${company}</p>
+      </td></tr>
+      <tr><td style="padding:13px 20px;border-bottom:1px solid #f3f4f6;">
+        <p style="color:#9ca3af;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin:0 0 2px 0;font-family:Arial,sans-serif;">Role</p>
+        <p style="color:#111827;font-size:14px;font-weight:700;margin:0;font-family:Arial,sans-serif;">${role}</p>
+      </td></tr>
+      <tr><td style="padding:13px 20px;">
+        <p style="color:#9ca3af;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin:0 0 2px 0;font-family:Arial,sans-serif;">Total Rounds</p>
+        <p style="color:#111827;font-size:14px;font-weight:700;margin:0;font-family:Arial,sans-serif;">${totalRounds}</p>
+      </td></tr>
+    </table>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr><td align="center" style="background:${ACCENT};border-radius:8px;padding:14px;">
+        <p style="color:#ffffff;font-size:13px;font-weight:700;margin:0;font-family:Arial,sans-serif;">Log in to MockRound.AI to view your challenge →</p>
+      </td></tr>
+    </table>
+  </td></tr>`);
+
+/* ─── Interview Report Email ─── */
+export const interviewReportEmail = (
+  name: string, company: string, role: string,
+  roundType: string, totalScore: number,
+  questionsCount: number, date: string,
+  questionsHtml: string
+): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 12px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 4px 0;font-family:Arial,sans-serif;">Interview Report</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 24px 0;font-family:Arial,sans-serif;">${company} · ${role} · ${roundType}</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff8f5;border:1.5px solid ${ACCENT};border-radius:10px;margin-bottom:24px;">
+      <tr>
+        <td align="center" style="padding:18px 0;border-right:1px solid #fde8dc;">
+          <p style="color:#9ca3af;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px 0;font-family:Arial,sans-serif;">Score</p>
+          <p style="color:#111827;font-size:32px;font-weight:800;margin:0;font-family:Arial,sans-serif;">${totalScore}<span style="font-size:14px;color:#6b7280;">/100</span></p>
+          <p style="color:${ACCENT};font-size:11px;font-weight:600;margin:3px 0 0 0;font-family:Arial,sans-serif;">${totalScore >= 80 ? '🎉 Excellent!' : totalScore >= 60 ? '👍 Good Effort!' : '💪 Keep Practicing!'}</p>
+        </td>
+        <td align="center" style="padding:18px 0;border-right:1px solid #fde8dc;">
+          <p style="color:#9ca3af;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px 0;font-family:Arial,sans-serif;">Questions</p>
+          <p style="color:#111827;font-size:28px;font-weight:800;margin:0;font-family:Arial,sans-serif;">${questionsCount}</p>
+        </td>
+        <td align="center" style="padding:18px 0;">
+          <p style="color:#9ca3af;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px 0;font-family:Arial,sans-serif;">Date</p>
+          <p style="color:#111827;font-size:13px;font-weight:700;margin:0;font-family:Arial,sans-serif;">${date}</p>
+        </td>
+      </tr>
+    </table>
+
+    <p style="color:#111827;font-size:13px;font-weight:700;margin:0 0 12px 0;padding-bottom:8px;border-bottom:2px solid ${ACCENT};font-family:Arial,sans-serif;">Questions & Answers</p>
+    ${questionsHtml}
+  </td></tr>`);
+
+/* ─── Code Analysis Email ─── */
+export const codeAnalysisEmail = (name: string, avgScore: string, totalSubmissions: number, resultsHtml: string): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 12px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 4px 0;font-family:Arial,sans-serif;">Code Analysis Report</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 24px 0;font-family:Arial,sans-serif;">Hi ${name}, your detailed code review is ready.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff8f5;border:1.5px solid ${ACCENT};border-radius:10px;margin-bottom:24px;">
+      <tr>
+        <td align="center" style="padding:18px 0;border-right:1px solid #fde8dc;">
+          <p style="color:#9ca3af;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px 0;font-family:Arial,sans-serif;">Avg Score</p>
+          <p style="color:#111827;font-size:32px;font-weight:800;margin:0;font-family:Arial,sans-serif;">${avgScore}</p>
+        </td>
+        <td align="center" style="padding:18px 0;">
+          <p style="color:#9ca3af;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px 0;font-family:Arial,sans-serif;">Submissions</p>
+          <p style="color:#111827;font-size:32px;font-weight:800;margin:0;font-family:Arial,sans-serif;">${totalSubmissions}</p>
+        </td>
+      </tr>
+    </table>
+
+    <p style="color:#111827;font-size:13px;font-weight:700;margin:0 0 12px 0;padding-bottom:8px;border-bottom:2px solid ${ACCENT};font-family:Arial,sans-serif;">Detailed Analysis</p>
+    ${resultsHtml}
+  </td></tr>`);
+
+/* ─── Thank You Email ─── */
+export const thankYouEmail = (name: string): string =>
+  wrap(`
+  <tr><td style="padding:36px 40px 28px;">
+    <p style="color:#111827;font-size:20px;font-weight:700;margin:0 0 6px 0;font-family:Arial,sans-serif;">Thank you, ${name}! 🙏</p>
+    <p style="color:#6b7280;font-size:13px;margin:0 0 24px 0;font-family:Arial,sans-serif;">We appreciate you taking the time to share your feedback.</p>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff8f5;border:1.5px solid ${ACCENT};border-radius:10px;margin-bottom:24px;">
+      <tr><td align="center" style="padding:24px 28px;">
+        <p style="color:#4b5563;font-size:13px;line-height:1.7;margin:0;font-family:Arial,sans-serif;">
+          Your feedback helps us build a better interview preparation experience.<br/>
+          We carefully review every response to improve MockRound.AI for everyone.
+        </p>
+      </td></tr>
+    </table>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr><td align="center" style="background:${ACCENT};border-radius:8px;padding:14px;">
+        <p style="color:#ffffff;font-size:13px;font-weight:700;margin:0;font-family:Arial,sans-serif;">Keep practicing — your dream job is closer than you think 🚀</p>
+      </td></tr>
+    </table>
+  </td></tr>`);

@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { Feedback } from '../../models/Feedback.model';
 import { sendThankYouEmail } from '../../services/email.service';
+import { thankYouEmail } from '../../utils/emailTemplate';
+import { sendEmail } from '../../services/sendemail.services';
 
 export const createFeedback = async (req: Request, res: Response) => {
   try {

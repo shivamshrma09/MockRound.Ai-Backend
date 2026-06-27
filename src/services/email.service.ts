@@ -1,51 +1,28 @@
 import sgMail from '@sendgrid/mail';
+import { thankYouEmail } from '../utils/emailTemplate';
 
 const initSendGrid = () => {
   const key = process.env.SENDGRID_API_KEY;
   if (!key) {
-    console.warn('SENDGRID_API_KEY is not set. Email sending is disabled until a valid key is provided.');
+    console.warn('SENDGRID_API_KEY is not set.');
     return false;
   }
   sgMail.setApiKey(key);
   return true;
 };
 
-const createThankYouEmail = (userName: string) => {
-  return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 40px; font-family: Arial, sans-serif;">
-    <div style="max-width: 600px; margin: 0 auto;">
-        <h1>Thank You for Your Feedback!</h1>
-        <p>Dear <strong>${userName}</strong>,</p>
-        <p>Thank you for taking the time to share your feedback with us!</p>
-        <p>© 2025 MockRound.AI | All Rights Reserved</p>
-    </div>
-</body>
-</html>
-  `;
-};
-
 export const sendThankYouEmail = async (userEmail: string, userName: string): Promise<boolean> => {
   if (!initSendGrid()) return false;
   try {
-    const htmlContent = createThankYouEmail(userName);
-    
-    const msg = {
+    await sgMail.send({
       to: userEmail,
-      from: 'shivamsharma27107@gmail.com',
+      from: process.env.SENDER_EMAIL!,
       subject: 'Thank You for Your Feedback - MockRound.AI',
-      html: htmlContent,
-    };
-
-    await sgMail.send(msg);
+      html: thankYouEmail(userName),
+    });
     return true;
   } catch (error) {
-    console.error('Thank you email send error:', error);
+    console.error('Thank you email error:', error);
     return false;
   }
 };
@@ -57,19 +34,15 @@ export const sendBulkThankYouEmails = async (users: Array<{ email: string; name:
 
   for (const user of users) {
     try {
-      const htmlContent = createThankYouEmail(user.name);
-      
-      const msg = {
+      await sgMail.send({
         to: user.email,
-        from: 'shivamsharma27107@gmail.com',
+        from: process.env.SENDER_EMAIL!,
         subject: 'Thank You for Your Feedback - MockRound.AI',
-        html: htmlContent,
-      };
-
-      await sgMail.send(msg);
+        html: thankYouEmail(user.name),
+      });
       successCount++;
     } catch (error) {
-      console.error(`Failed to send thank you email to ${user.email}:`, error);
+      console.error(`Failed to send email to ${user.email}:`, error);
       failedCount++;
     }
   }

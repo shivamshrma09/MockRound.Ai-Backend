@@ -84,7 +84,6 @@ export const saveTechnicalRoundAnalysis = async (
     
     user.technicalMCQrounds.push(newtechnicalMCQrounds);
     user.totalInterviews.freeInterviews += 1;
-    await user.save();
 
     
     const htmlReport = generateTechnicalRoundReport(newtechnicalMCQrounds);
